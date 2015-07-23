@@ -6,8 +6,13 @@
 - name: Disable apparmor step 2
   shell: apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
 
-- name: MySQL | Ensure datadir exists
-  file: path={{mysql_datadir}} state=directory owner=mysql group=mysql
+- name: Check if the datadir is already present
+  stat: path={{mysql_datadir}}
+  register: dcheck
+
+- name: MySQL | move /var/lib/mysql if datadir is different
+  command: mv /var/lib/mysql {{mysql_datadir}}
+  when: mysql_datadir !== "/var/lib/mysql" and dcheck.stat.exists == false
 
 - name: MySQL | Ensure tmpdir exists
   file: path={{mysql_tmpdir}} state=directory owner=mysql group=mysql
