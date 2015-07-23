@@ -1,5 +1,11 @@
 # file: mysql/tasks/configure.yml
 
+- name: Disable apparmor step 1
+  shell: ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
+
+- name: Disable apparmor step 2
+  shell: apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+
 - name: MySQL | Ensure datadir exists
   file: path={{mysql_datadir}} state=directory owner=mysql group=mysql
 
