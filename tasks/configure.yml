@@ -1,7 +1,7 @@
 # file: mysql/tasks/configure.yml
 
 - name: check if apparmor has been disabled
-  stat: /etc/apparmor.d/disable/usr.sbin.mysqld
+  stat: path=/etc/apparmor.d/disable/usr.sbin.mysqld
   register: appcheck
 
 - name: Disable apparmor step 1
