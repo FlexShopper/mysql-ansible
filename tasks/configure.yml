@@ -1,10 +1,16 @@
 # file: mysql/tasks/configure.yml
 
+- name: check if apparmor has been disabled
+  stat: /etc/apparmor.d/disable/usr.sbin.mysqld
+  register: appcheck
+
 - name: Disable apparmor step 1
   shell: ln -s /etc/apparmor.d/usr.sbin.mysqld /etc/apparmor.d/disable/
+  when: appcheck.stat.exists == false
 
 - name: Disable apparmor step 2
   shell: apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+  when: appcheck.stat.exists == false
 
 - name: Check if the datadir is already present
   stat: path={{mysql_datadir}}
