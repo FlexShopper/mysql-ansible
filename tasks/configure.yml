@@ -1,10 +1,10 @@
 # file: mysql/tasks/configure.yml
 
 - name: MySQL | Ensure datadir exists
-  file: path={{mysql_datadir}} state=directory
+  file: path={{mysql_datadir}} state=directory owner=mysql group=mysql
 
 - name: MySQL | Ensure tmpdir exists
-  file: path={{mysql_tmpdir}} state=directory
+  file: path={{mysql_tmpdir}} state=directory owner=mysql group=mysql
 
 - name: MySQL | Update the my.cnf
   template:
