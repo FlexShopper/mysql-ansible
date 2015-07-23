@@ -18,7 +18,7 @@
 
 - name: MySQL | move /var/lib/mysql if datadir is different
   command: mv /var/lib/mysql {{mysql_datadir}}
-  when: mysql_datadir !== "/var/lib/mysql" and dcheck.stat.exists == false
+  when: mysql_datadir != "/var/lib/mysql" and dcheck.stat.exists == false
 
 - name: MySQL | Ensure tmpdir exists
   file: path={{mysql_tmpdir}} state=directory owner=mysql group=mysql
