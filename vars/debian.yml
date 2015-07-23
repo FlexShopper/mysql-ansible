@@ -1,6 +1,5 @@
 # file: mysql/vars/debian.yml
 
 mysql_packages:
-  - mysql-server
-  - mysql-client
-  - python-mysqldb
+  - mysql-server-5.6
+  - mysql-client-5.6
