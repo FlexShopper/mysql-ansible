@@ -1,5 +1,11 @@
 # file: mysql/tasks/configure.yml
 
+- name: MySQL | Ensure datadir exists
+  file: path={{mysql_datadir}} state=directory
+
+- name: MySQL | Ensure tmpdir exists
+  file: path={{mysql_tmpdir}} state=directory
+
 - name: MySQL | Update the my.cnf
   template:
     src: etc_mysql_my.cnf.j2
